@@ -52,7 +52,7 @@ div, textarea {
     border: 1px solid black;
 }
 
-.tile-oponent {
+.tile-opponent {
     cursor: pointer;
 }
 
@@ -64,4 +64,24 @@ div, textarea {
     left: 5em;
     position: absolute;
     top: 5em;
+}
+
+#player_board {
+    position: absolute;
+    left: 10em;
+    top: 37em;
+}
+
+#opponent_board {
+    position: absolute;
+    left: 10em;
+    top: 10em;
+}
+
+.chat-position {
+    position: absolute;
+    top: 10em;
+    height: 52em;
+    left: 38em;
+    width: 30em;
 }
