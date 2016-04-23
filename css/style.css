@@ -45,3 +45,14 @@ div, textarea {
     border: none;
     outline: none;
 }
+
+.tile {
+    position: absolute;
+    cursor: pointer;
+    background: blue;
+    border: 1px solid black;
+}
+
+.tile:hover {
+    background: red;
+}
