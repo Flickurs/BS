@@ -9,6 +9,7 @@ function buildNewBoard(rows, cols, tileSize, player)
 
 	for(var y = 0; y < rows; y++)
 	{
+        var letter = String.fromCharCode('a'.charCodeAt(0) + y);
 		for(var x = 0; x < cols; x++)
 		{
 			var tile = document.createElement("div");
