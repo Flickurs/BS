@@ -56,3 +56,9 @@ div, textarea {
 .tile:hover {
     background: red;
 }
+
+#game_board {
+    left: 5em;
+    position: absolute;
+    top: 5em;
+}
