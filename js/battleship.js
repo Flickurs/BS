@@ -1,20 +1,27 @@
-function buildNewBoard(rows, cols, tileSize)
+function buildNewBoard(rows, cols, tileSize, player)
 {
-	var container = document.getElementById("game_board");
+  var container;
+  if(player == "player")
+    container = document.getElementById("player_board");
+
+  else
+    container = document.getElementById("opponent_board");
 
 	for(var y = 0; y < rows; y++)
 	{
-  		for(var x = 0; x < cols; x++)
-  		{
-  			var tile = document.createElement("div");
-  			container.appendChild(tile);
-  			tile.id = "player-" + x + "-" + y;
+		for(var x = 0; x < cols; x++)
+		{
+			var tile = document.createElement("div");
+			container.appendChild(tile);
+			tile.id = "grid-" + x + "-" + y;
 
-  			tile.classList.add("tile");
-  			tile.style.top = (y*tileSize) + 'px';
-  			tile.style.left = (x*tileSize) + 'px';
-  			tile.style.width = tileSize + 'px';
-  			tile.style.height = tileSize + 'px';
-  		}
+			tile.classList.add("tile");
+      if(player == "opponent")
+        tile.classList.add("tile-opponent");
+			tile.style.top = (y*tileSize) + 'px';
+			tile.style.left = (x*tileSize) + 'px';
+			tile.style.width = tileSize + 'px';
+			tile.style.height = tileSize + 'px';
+		}
 	}
 }

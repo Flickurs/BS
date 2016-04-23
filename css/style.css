@@ -48,9 +48,12 @@ div, textarea {
 
 .tile {
     position: absolute;
-    cursor: pointer;
     background: blue;
     border: 1px solid black;
+}
+
+.tile-oponent {
+    cursor: pointer;
 }
 
 .tile:hover {

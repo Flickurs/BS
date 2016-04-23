@@ -27,8 +27,12 @@
         </div>
     </div>
 
-    <div id="game_board"></div>
-    <script>buildNewBoard(10, 10, 50);</script>
+    <div id="opponent_board"></div>
+    <div id="player_board"></div>
+    <script>
+        buildNewBoard(10, 10, 50, "opponent");
+        buildNewBoard(10, 10, 50, "player");
+    </script>
 
     <script src="js/Connection.js"></script>
     <script src="js/app.js"></script>
