@@ -14,7 +14,11 @@ function buildNewBoard(rows, cols, tileSize, player)
 		{
 			var tile = document.createElement("div");
 			container.appendChild(tile);
-      var id = "grid-" + x + "-" + y;
+
+      var id = "";
+      if(player == "player") id += "player";
+      else id += "opponent";
+      id += "-grid-" + x + "-" + y;
 			tile.id = id;
       
       if(x == 0 && y > 0)
