@@ -19,11 +19,13 @@ var Connection = (function() {
         },
 
         addChatMessage: function(name, msg) {
-            this.chatwindow.innerHTML += '<p>' + name + ': ' + msg + '</p>';
+            this.chatwindow.innerHTML += name + ': ' + msg + '&#13;&#10;';
+            this.chatwindow.scrollTop = this.chatwindow.scrollHeight;
         },
 
         addSystemMessage: function(msg) {
-            this.chatwindow.innerHTML += '<p><b>' + msg + '</b></p>';
+            this.chatwindow.innerHTML += msg + '&#13;&#10;';
+            this.chatwindow.scrollTop = this.chatwindow.scrollHeight;
         },
 
         setupConnectionEvents: function() {

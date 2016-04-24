@@ -8,10 +8,10 @@ div, textarea {
     box-sizing: border-box;
 }
 
-#username {
+/*#username {
     margin: 20px;
     padding: 10px;
-}
+}*/
 
 #chatcontainer {
     display: none;
@@ -19,8 +19,7 @@ div, textarea {
 
 .container {
     height: 100%;
-    width: 400px;
-    border-right: 1px solid #242424;
+    width: 100%;
 }
 
 .chat, .form {
@@ -36,7 +35,7 @@ div, textarea {
     border-top: 1px solid #242424;
 }
 
-#messagebox {
+/*#messagebox {
     resize: none;
     width: 100%;
     height: 100%;
@@ -44,11 +43,11 @@ div, textarea {
     padding: 10px 0;
     border: none;
     outline: none;
-}
+}*/
 
 .tile {
     position: absolute;
-    background: blue;
+    background: #3399ff;
     border: 1px solid black;
 }
 
@@ -56,8 +55,8 @@ div, textarea {
     cursor: pointer;
 }
 
-.tile:hover {
-    background: red;
+.tile-opponent:hover {
+    background: #0059b3;
 }
 
 #game_board {
@@ -68,20 +67,56 @@ div, textarea {
 
 #player_board {
     position: absolute;
-    left: 10em;
+    left: 5em;
     top: 37em;
 }
 
 #opponent_board {
     position: absolute;
-    left: 10em;
-    top: 10em;
+    left: 5em;
+    top: 7em;
 }
 
 .chat-position {
     position: absolute;
-    top: 10em;
-    height: 52em;
+    top: 7em;
+    height: 111ex;
     left: 38em;
     width: 30em;
+}
+
+.tile-label, .tile-label:hover {
+    background: white;
+    text-align: center;
+    font-size: 3ex;
+}
+
+.background-image
+{
+    background: url("ocean.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.background
+{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.opaque-cover
+{
+    position: absolute;
+    width: 450px;
+    height: 620px;
+}
+
+.opaque
+{
+    background-color: rgba(0, 0, 0, 0.7);
 }
