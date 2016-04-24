@@ -1,31 +1,28 @@
-var messagebox = document.getElementById("messagebox");
-var username = document.getElementById("username");
-var chatcontainer = document.getElementById("chatcontainer");
-// var conn;
+function start_game()
+{
+    var username = document.getElementById("username");
+    conn = new Connection(name, "chatwindow", "uofu-cs4540-64.westus.cloudapp.azure.com:8080");
+    var modal = document.getElementById("start_modal");
+    modal.style.display = "none";
 
-username.addEventListener('keypress', function(evt) {
-    if (evt.keyCode != 13 || this.value == "")
-        return;
+    var messagebox = document.getElementById("messagebox");
 
-    evt.preventDefault();
+    messagebox.addEventListener('keypress', function(evt) {
+        if (evt.keyCode != 13 || conn == undefined)
+            return;
 
-    var name = this.value;
-    this.style.display = "none";
-    chatcontainer.style.display = "block";
+        evt.preventDefault();
 
-    // conn = new Connection(name, "chatwindow", "uofu-cs4540-64.westus.cloudapp.azure.com:8080");
-});
+        if (this.value == "")
+            return;
 
-messagebox.addEventListener('keypress', function(evt) {
-    if (evt.keyCode != 13 || conn == undefined)
-        return;
+        var message = {
+            "action": "message",
+            "message": this.value
+        };
 
-    evt.preventDefault();
+        conn.sendMsg(message);
 
-    if (this.value == "")
-        return;
-
-    conn.sendMsg(this.value);
-
-    this.value = "";
-});
+        this.value = "";
+    });
+}

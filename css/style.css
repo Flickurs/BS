@@ -13,9 +13,9 @@ div, textarea {
     padding: 10px;
 }*/
 
-#chatcontainer {
+/*#chatcontainer {
     display: none;
-}
+}*/
 
 .container {
     height: 100%;
@@ -119,4 +119,24 @@ div, textarea {
 .opaque
 {
     background-color: rgba(0, 0, 0, 0.7);
+}
+
+.game-modal
+{
+    position: fixed;
+    left: 3em;
+    top: 5em;
+    width: 68em;
+    height: 62em;
+}
+
+.center
+{
+    top: 40%;
+    height: 20em;
+    margin-top: -20px;
+    width: 20em;
+    position: absolute;
+    left: 35em;
+    margin-left: -190px;
 }

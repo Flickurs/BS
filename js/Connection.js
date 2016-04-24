@@ -1,7 +1,8 @@
 var Connection = (function() {
 
-    function Connection(username, chatWindowId, url) {
+    function Connection(username, chatWindowId, url, board) {
         this.username = username;
+        this.board = board;
         this.chatwindow = document.getElementById(chatWindowId);
 
         this.open = false;
@@ -11,10 +12,18 @@ var Connection = (function() {
     }
 
     Connection.prototype = {
-        updateUsername: function() {
+        // updateUsername: function() {
+        //     this.socket.send(JSON.stringify({
+        //         action: 'setname',
+        //         username: this.username
+        //     }));
+        // },
+
+        userReady: function() {
             this.socket.send(JSON.stringify({
-                action: 'setname',
-                username: this.username
+                action: "start",
+                username: this.username,
+                board: this.board
             }));
         },
 
@@ -40,7 +49,7 @@ var Connection = (function() {
             this.open = true;
             this.addSystemMessage("Connected");
 
-            this.updateUsername();
+            this.userReady();
         },
 
         connectionMessage: function(evt) {
