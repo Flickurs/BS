@@ -57,12 +57,12 @@ function buildNewBoard(rows, cols, tileSize, player)
 
 function fireShot(cell)
 {
-  var message = {
-    "message" : "shot",
-    "position" : cell.id
-  };
+  var message = JSON.stringify({
+    action : "fire",
+    coord : cell.id.substring(8)
+  });
   this.onclick = null;
-  conn.sendMsg(message);
+  conn.send(message);
   cell.classList.remove("tile-opponent");
   cell.style.background = "#b30000";
   cell.onclick = null;

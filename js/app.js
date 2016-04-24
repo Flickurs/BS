@@ -1,7 +1,7 @@
 function start_game()
 {
-    var username = document.getElementById("username");
-    conn = new Connection(name, "chatwindow", "uofu-cs4540-64.westus.cloudapp.azure.com:8080");
+    var username = document.getElementById("username").value;
+    conn = new Connection(username, "chatwindow", "uofu-cs4540-64.westus.cloudapp.azure.com:8080");
     var modal = document.getElementById("start_modal");
     modal.style.display = "none";
 

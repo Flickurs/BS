@@ -12,18 +12,12 @@ var Connection = (function() {
     }
 
     Connection.prototype = {
-        // updateUsername: function() {
-        //     this.socket.send(JSON.stringify({
-        //         action: 'setname',
-        //         username: this.username
-        //     }));
-        // },
 
         userReady: function() {
             this.socket.send(JSON.stringify({
                 action: "start",
                 username: this.username,
-                board: this.board
+                coords: [ "4-1", "5-1"]
             }));
         },
 
@@ -57,14 +51,37 @@ var Connection = (function() {
                 return;
 
             var data = JSON.parse(evt.data);
-            if (data.action == 'setname') {
-                if (data.success)
-                    this.addSystemMessage("Set username to " + this.username);
-                else
-                    this.addSystemMessage("Username " + this.username + " has been taken.");
-            } else if (data.action == 'message') {
-                this.addChatMessage(data.username, data.msg);
+
+            if(data.action == "start")
+            {
+                this.addSystemMessage("Opponent has connected: " + data.opponent);
+                this.addSystemMessage("Your turn: " + data.turn);
             }
+            else if(data.action == "result")
+            {
+                var tile = document.getElementById("opponent-" + data.coord);
+                if(data.hit == "true")
+                    tile.style.background = "red";
+                else
+                    tile.style.background = "white";
+            }
+            else if(data.action == "turn")
+            {
+
+            }
+            else if(data.action == "game_over")
+            {
+
+            }
+
+            // if (data.action == 'setname') {
+            //     if (data.success)
+            //         this.addSystemMessage("Set username to " + this.username);
+            //     else
+            //         this.addSystemMessage("Username " + this.username + " has been taken.");
+            // } else if (data.action == 'message') {
+            //     this.addChatMessage(data.username, data.msg);
+            // }
         },
 
         connectionClose: function(evt) {
@@ -82,6 +99,14 @@ var Connection = (function() {
                 this.addChatMessage(this.username, message);
             } else {
                 this.addSystemMessage("You are not connected to the server.");
+            }
+        },
+
+        send: function(message)
+        {
+            if(this.open)
+            {
+                this.socket.send(message);
             }
         }
     };
