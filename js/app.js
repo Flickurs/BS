@@ -1,7 +1,9 @@
 function start_game()
 {
     var username = document.getElementById("username").value;
-    conn = new Connection(username, "chatwindow", "uofu-cs4540-64.westus.cloudapp.azure.com:8080");
+    var player_board = buildNewBoard(11, 11, 35, "player");
+    buildNewBoard(11, 11, 35, "opponent");
+    conn = new Connection(username, "chatwindow", "uofu-cs4540-64.westus.cloudapp.azure.com:8080", player_board);
     var modal = document.getElementById("start_modal");
     modal.style.display = "none";
 
@@ -16,12 +18,12 @@ function start_game()
         if (this.value == "")
             return;
 
-        var message = {
-            "action": "message",
-            "message": this.value
-        };
+        var message = JSON.stringify({
+            action: "message",
+            message: this.value
+        });
 
-        conn.sendMsg(message);
+        conn.send(message);
 
         this.value = "";
     });

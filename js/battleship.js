@@ -58,7 +58,7 @@ function buildNewBoard(rows, cols, tileSize, player)
     if(player == "player")
     {
       // Returns an array of strings, each string is a ship location on the board
-      generateAllShips()
+      return generateAllShips();
     }
 }
 
@@ -182,13 +182,9 @@ function fireShot(cell)
 {
   var message = JSON.stringify({
     action : "fire",
-    coord : cell.id.substring(8)
+    coord : cell.id.substring(14)
   });
-  this.onclick = null;
   conn.send(message);
-  cell.classList.remove("tile-opponent");
-  cell.style.background = "#b30000";
-  cell.onclick = null;
 }
 
 function hit(cell_id)

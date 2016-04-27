@@ -6,7 +6,7 @@ var Connection = (function() {
         this.chatwindow = document.getElementById(chatWindowId);
 
         this.open = false;
-
+        this.opponent = "Player 2";
         this.socket = new WebSocket("ws://" + url);
         console.log("Connected");
         this.setupConnectionEvents();
@@ -18,7 +18,7 @@ var Connection = (function() {
             this.socket.send(JSON.stringify({
                 action: "start",
                 username: this.username,
-                coords: [ "4-1", "5-1"]
+                coords: this.board
             }));
         },
 
@@ -56,34 +56,58 @@ var Connection = (function() {
             if(data.action == "start")
             {
                 this.addSystemMessage("Opponent has connected: " + data.opponent);
-                this.addSystemMessage("Your turn: " + data.turn);
+                this.opponent = data.opponent;
+                if(data.turn)
+                {
+                    this.addSystemMessage("Your turn!");
+                }
+                else
+                    this.addSystemMessage("Wait for opponents turn...");
             }
             else if(data.action == "result")
             {
-                alert(data);
-                var tile = document.getElementById("opponent" + data.coord);
-                if(data.hit == "true")
-                    tile.style.background = "red";
+                var tile = document.getElementById("opponent-grid-" + data.coord);
+                if(data.hit)
+                {
+                    tile.style.background = "#b30000";
+                }
                 else
+                {
                     tile.style.background = "white";
+                }
+                tile.onclick = null;
+                tile.classList.remove("tile-opponent");
+                this.addSystemMessage("Wait for opponents turn...");
             }
             else if(data.action == "turn")
             {
-
+                this.addSystemMessage("Your turn!");
+                var tile = document.getElementById("player-grid-" + data.coord);
+                if(data.hit)
+                {
+                    tile.style.background = "#b30000";
+                }
+                else
+                {
+                    tile.style.background = "white";
+                }
             }
             else if(data.action == "game_over")
             {
-
+                this.addSystemMessage("GAME OVER!")
+                this.addSystemMessage(data.winner + " Is the WINNER!");
+            }
+            else if(data.action == "message")
+            {
+                this.addChatMessage(data.name, data.message);
+            }
+            else if(data.action == "user_disconnect")
+            {
+                this.addSystemMessage(this.opponent + " disconnected...");
+                this.connectionClose();
             }
 
-            // if (data.action == 'setname') {
-            //     if (data.success)
-            //         this.addSystemMessage("Set username to " + this.username);
-            //     else
-            //         this.addSystemMessage("Username " + this.username + " has been taken.");
-            // } else if (data.action == 'message') {
-            //     this.addChatMessage(data.username, data.msg);
-            // }
+
         },
 
         connectionClose: function(evt) {
