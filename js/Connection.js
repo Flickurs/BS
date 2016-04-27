@@ -8,6 +8,7 @@ var Connection = (function() {
         this.open = false;
 
         this.socket = new WebSocket("ws://" + url);
+        console.log("Connected");
         this.setupConnectionEvents();
     }
 
@@ -59,7 +60,8 @@ var Connection = (function() {
             }
             else if(data.action == "result")
             {
-                var tile = document.getElementById("opponent-" + data.coord);
+                alert(data);
+                var tile = document.getElementById("opponent" + data.coord);
                 if(data.hit == "true")
                     tile.style.background = "red";
                 else
