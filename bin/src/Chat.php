@@ -48,24 +48,51 @@ class Chat implements MessageComponentInterface
         $data = $this->parseMessage($msg);
         $currClient = $this->repository->getClientByConnection($conn);
 
+        if($data->action === "setname")
+            print("name '" . $msg . "'\n");
+
         // Distinguish between the actions
-        if ($data->action === "setname")
+        if ($data->action === "fire")
         {
-            $currClient->setName($data->username);
+            if ($currClient->isGameNull())
+            {
+                print("This bitch, " . $currClient->getName() . ", trying to play off turn.\n");
+                return;
+            }
+
+            $currClient->fire($data->coord);
         }
         else if ($data->action === "message")
         {
-            // We don't want to handle messages if the name isn't set
-            if ($currClient->getName() === "")
-                return;
-
-            foreach ($this->repository->getClients() as $client)
-            {
-                // Send the message to the clients if, except for the client who sent the message originally
-                if ($currClient->getName() !== $client->getName())
-                    $client->sendMsg($currClient->getName(), $data->msg);
-            }
+            if (!$currClient->isGameNull())
+                $currClient->message($data->message);
         }
+        else if ($data->action === "start")
+        {
+            print("Client start request.\n");
+            $currClient->setName($data->username);
+            $currClient->setCoords($data->coords);
+            $this->repository->enqueueClient($currClient);
+        }
+
+        // // Distinguish between the actions
+        // if ($data->action === "setname")
+        // {
+        //     $currClient->setName($data->username);
+        // }
+        // else if ($data->action === "message")
+        // {
+        //     // We don't want to handle messages if the name isn't set
+        //     if ($currClient->getName() === "")
+        //         return;
+
+        //     foreach ($this->repository->getClients() as $client)
+        //     {
+        //         // Send the message to the clients if, except for the client who sent the message originally
+        //         if ($currClient->getName() !== $client->getName())
+        //             $client->sendMsg($currClient->getName(), $data->msg);
+        //     }
+        // }
     }
 
     /**

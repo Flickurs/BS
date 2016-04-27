@@ -3,7 +3,9 @@
 namespace Chat\Repository;
 
 use SplObjectStorage;
+use SplQueue;
 use Chat\Connection\ChatConnection;
+use Chat\Game\Game;
 use Ratchet\ConnectionInterface;
 
 class ChatRepository implements ChatRepositoryInterface
@@ -14,6 +16,7 @@ class ChatRepository implements ChatRepositoryInterface
      * @var SplObjectStorage
      */
     private $clients;
+    private $queue;
 
     /**
      * ChatRepository Constructor
@@ -21,6 +24,7 @@ class ChatRepository implements ChatRepositoryInterface
     public function __construct()
     {
         $this->clients = new SplObjectStorage;
+        $this->queue = new SplQueue;
     }
 
     /**
@@ -65,7 +69,9 @@ class ChatRepository implements ChatRepositoryInterface
      */
     public function addClient(ConnectionInterface $conn)
     {
-        $this->clients->attach(new ChatConnection($conn, $this));
+        $newClient = new ChatConnection($conn, $this);
+        $this->clients->attach($newClient);
+        print("Client connected\n");
     }
 
     /**
@@ -79,7 +85,11 @@ class ChatRepository implements ChatRepositoryInterface
         $client = $this->getClientByConnection($conn);
 
         if ($client !== null)
+        {
+            print("Disconnecting: " . $client->getName() . "\n");
+            $client->disconnect();
             $this->clients->detach($client);
+        }
     }
 
     /**
@@ -90,5 +100,34 @@ class ChatRepository implements ChatRepositoryInterface
     public function getClients()
     {
         return $this->clients;
+    }
+
+    public function enqueueClient(ChatConnection $client)
+    {
+        print("Client enqueued.\n");
+        print("Queue count before: " . $this->queue->count() . "\n");
+        $this->queue->enqueue($client);
+        print("Queue count after: " . $this->queue->count() . "\n");
+        while ($this->queue->count() >= 2)
+        {
+            $playerOne = $this->queue->dequeue();
+            $playerTwo = $this->queue->dequeue();
+
+            if ($this->getClientByConnection($playerOne->getConnection()) == null)
+            {
+                if ($this->getClientByConnection($playerTwo->getConnection()) != null)
+                    $this->queue->enqueue($playerTwo);
+                continue;
+            }
+            else if ($this->getClientByConnection($playerTwo->getConnection()) == null)
+            {
+                if ($this->getClientByConnection($playerOne->getConnection()) != null)
+                    $this->queue->enqueue($playerOne);
+                continue;
+            }
+
+            print("Creating game...\n");
+            new Game($playerOne, $playerTwo);
+        }
     }
 }
