@@ -48,9 +48,6 @@ class Chat implements MessageComponentInterface
         $data = $this->parseMessage($msg);
         $currClient = $this->repository->getClientByConnection($conn);
 
-        if($data->action === "setname")
-            print("name '" . $msg . "'\n");
-
         // Distinguish between the actions
         if ($data->action === "fire")
         {
@@ -74,25 +71,6 @@ class Chat implements MessageComponentInterface
             $currClient->setCoords($data->coords);
             $this->repository->enqueueClient($currClient);
         }
-
-        // // Distinguish between the actions
-        // if ($data->action === "setname")
-        // {
-        //     $currClient->setName($data->username);
-        // }
-        // else if ($data->action === "message")
-        // {
-        //     // We don't want to handle messages if the name isn't set
-        //     if ($currClient->getName() === "")
-        //         return;
-
-        //     foreach ($this->repository->getClients() as $client)
-        //     {
-        //         // Send the message to the clients if, except for the client who sent the message originally
-        //         if ($currClient->getName() !== $client->getName())
-        //             $client->sendMsg($currClient->getName(), $data->msg);
-        //     }
-        // }
     }
 
     /**

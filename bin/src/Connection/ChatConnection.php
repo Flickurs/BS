@@ -138,6 +138,7 @@ class ChatConnection implements ChatConnectionInterface
 
     public function gameOver($user)
     {
+        print("GAMEOVER\n");
         $this->send([
             'action'  => 'game_over',
             'winner'   => $user

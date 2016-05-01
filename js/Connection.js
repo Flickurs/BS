@@ -6,6 +6,7 @@ var Connection = (function() {
         this.chatwindow = document.getElementById(chatWindowId);
 
         this.open = false;
+        this.canFire = false;
         this.opponent = "Player 2";
         this.socket = new WebSocket("ws://" + url);
         console.log("Connected");
@@ -43,7 +44,6 @@ var Connection = (function() {
         connectionOpen: function(evt) {
             this.open = true;
             this.addSystemMessage("Connected");
-
             this.userReady();
         },
 
@@ -55,6 +55,7 @@ var Connection = (function() {
 
             if(data.action == "start")
             {
+                this.canFire = true;
                 this.addSystemMessage("Opponent has connected: " + data.opponent);
                 this.opponent = data.opponent;
                 if(data.turn)
@@ -62,7 +63,9 @@ var Connection = (function() {
                     this.addSystemMessage("Your turn!");
                 }
                 else
+                {
                     this.addSystemMessage("Wait for opponents turn...");
+                }
             }
             else if(data.action == "result")
             {
@@ -92,14 +95,15 @@ var Connection = (function() {
                     tile.style.background = "white";
                 }
             }
-            else if(data.action == "game_over")
-            {
-                this.addSystemMessage("GAME OVER!")
-                this.addSystemMessage(data.winner + " Is the WINNER!");
-            }
             else if(data.action == "message")
             {
                 this.addChatMessage(data.name, data.message);
+            }
+            else if(data.action == "game_over")
+            {
+                this.canFire = false;
+                this.addSystemMessage("GAME OVER!")
+                this.addSystemMessage(data.winner + " Is the WINNER!");
             }
             else if(data.action == "user_disconnect")
             {

@@ -20,11 +20,11 @@ function buildNewBoard(rows, cols, tileSize, player)
       else id += "opponent";
       id += "-grid-" + x + "-" + y;
 			tile.id = id;
-      
+
       if(x == 0 && y > 0)
       {
         var row_name = document.createElement("label");
-        row_name.innerHTML = letter.toUpperCase();      
+        row_name.innerHTML = letter.toUpperCase();
         tile.appendChild(row_name);
       }
       else if(y == 0 && x > 0)
@@ -46,14 +46,14 @@ function buildNewBoard(rows, cols, tileSize, player)
         tile.onclick = function() { fireShot(this); };
       }
 
-			tile.classList.add("tile");   
+			tile.classList.add("tile");
 			tile.style.top = (y*tileSize) + 'px';
 			tile.style.left = (x*tileSize) + 'px';
 			tile.style.width = tileSize + 'px';
 			tile.style.height = tileSize + 'px';
 		}
 	}
-	
+
 	// If the player's board was just built, add ships to it
     if(player == "player")
     {
@@ -103,8 +103,8 @@ function generateShip(size)
       }
 
       var goodLocation = true;
-    
-    
+
+
       // for each location on the board
       for (var x = 1; x <=10; x = x + 1) {
         for (var y = 1; y <=10; y = y + 1) {
@@ -131,7 +131,7 @@ function generateShip(size)
       if(!goodLocation)
       {
         // Random number between 1 and 10
-        varyingIndex = Math.floor(Math.random() * 10) + 1  
+        varyingIndex = Math.floor(Math.random() * 10) + 1
 
         // Random number between 1 and 10
         constantIndex = Math.floor(Math.random() * 10) + 1
@@ -148,7 +148,7 @@ function generateShip(size)
         locationsToAdd.push(newShipLocation)
 
         count = count + 1;
-      }   
+      }
 
     }
 
@@ -156,7 +156,7 @@ function generateShip(size)
     var locationsAdded = []
 
     // for each location to be added
-    for (var i = 0; i < locationsToAdd.length; i++) 
+    for (var i = 0; i < locationsToAdd.length; i++)
     {
       var locationToAdd = locationsToAdd[i];
       var num1 = locationToAdd[0];
@@ -169,7 +169,7 @@ function generateShip(size)
 
       // get the element
       var toColor = document.getElementById(idToColor);
-    
+
       // color the location
       toColor.style.background = "#808080";
     }
@@ -180,14 +180,17 @@ function generateShip(size)
 
 function fireShot(cell)
 {
-  var message = JSON.stringify({
-    action : "fire",
-    coord : cell.id.substring(14)
-  });
-  conn.send(message);
+  if (conn.canFire)
+  {
+    var message = JSON.stringify({
+      action : "fire",
+      coord : cell.id.substring(14)
+    });
+    conn.send(message);
+  }
 }
 
 function hit(cell_id)
 {
-  
+
 }
