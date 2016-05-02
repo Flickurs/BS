@@ -8,7 +8,7 @@ div, textarea {
     box-sizing: border-box;
 }
 
-.container {
+.container-bs {
     height: 100%;
     width: 100%;
 }
