@@ -43,12 +43,13 @@
         </div>
     </nav>
 
-    <div>
+    <div class='col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3'>
         <div class='text-center'>
             <a href='https://github.com/Flickurs/BS' class='btn btn-success'>Repository</a>
         </div>
-        <div id='readme' class='opaque well center'>
-            <p>Herein lies Jake Anderson, Matthew Lemon, Michael Pregman, and Jackson Stafford's Final Project for CS 4540 Spring 2016.</p>
+        <br>
+        <div id='readme' class='opaque well'>
+            <p>Herein lies Jake Anderson, Matthew Lemon, Michael Pregman, and Jackson Stafford's Final Project for CS 4540 Spring 2016. Game play follows normal Battleship patterns, though ships are randomly placed for each user. Additionally, there exists an in game chat window.</p>
         </div>
     </div>
 
