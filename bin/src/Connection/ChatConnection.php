@@ -138,7 +138,7 @@ class ChatConnection implements ChatConnectionInterface
 
     public function gameOver($user)
     {
-        print("GAMEOVER\n");
+        // print("GAMEOVER\n");
         $this->send([
             'action'  => 'game_over',
             'winner'   => $user
@@ -147,9 +147,9 @@ class ChatConnection implements ChatConnectionInterface
 
     public function setCoords($cs)
     {
-        print("Coords: \n");
-        foreach ($cs as $c)
-            print($c . "\n");
+        // print("Coords: \n");
+        // foreach ($cs as $c)
+        //     print($c . "\n");
 
         $this->coords = $cs;
     }

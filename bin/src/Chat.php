@@ -53,7 +53,6 @@ class Chat implements MessageComponentInterface
         {
             if ($currClient->isGameNull())
             {
-                print("This bitch, " . $currClient->getName() . ", trying to play off turn.\n");
                 return;
             }
 
@@ -66,7 +65,7 @@ class Chat implements MessageComponentInterface
         }
         else if ($data->action === "start")
         {
-            print("Client start request.\n");
+            // print("Client start request.\n");
             $currClient->setName($data->username);
             $currClient->setCoords($data->coords);
             $this->repository->enqueueClient($currClient);

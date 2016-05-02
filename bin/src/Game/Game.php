@@ -27,19 +27,19 @@ class Game implements GameInterface
 
     public function handleMissle($conn, $coord)
     {
-        print("handling missle " . $coord . "\n");
+        // print("handling missle " . $coord . "\n");
         if($conn == $this->playerOneConn && $this->turn == 1)
         {
             $hit = $this->playerTwoConn->containsCoord($coord);
 
-            if($hit)
-                print("HIT!\n");
-            print("P1 hits left: " . $this->playerOneHitsLeft . "\n");
+            // if($hit)
+            //     print("HIT!\n");
+            // print("P1 hits left: " . $this->playerOneHitsLeft . "\n");
 
             if($hit)
                 $this->playerOneHitsLeft -= 1;
 
-            print("P1 hits left: " . $this->playerOneHitsLeft . "\n");
+            // print("P1 hits left: " . $this->playerOneHitsLeft . "\n");
 
             $this->playerOneConn->sendResult($coord, $hit);
             $this->playerTwoConn->sendTurn($coord, $hit);
@@ -56,14 +56,14 @@ class Game implements GameInterface
         {
             $hit = $this->playerOneConn->containsCoord($coord);
 
-            if($hit)
-                print("HIT!\n");
-            print("P2 hits left: " . $this->playerTwoHitsLeft . "\n");
+            // if($hit)
+            //     print("HIT!\n");
+            // print("P2 hits left: " . $this->playerTwoHitsLeft . "\n");
 
             if($hit)
                 $this->playerTwoHitsLeft -= 1;
 
-            print("P2 hits left: " . $this->playerTwoHitsLeft . "\n");
+            // print("P2 hits left: " . $this->playerTwoHitsLeft . "\n");
 
             $this->playerTwoConn->sendResult($coord, $hit);
             $this->playerOneConn->sendTurn($coord, $hit);
@@ -75,10 +75,6 @@ class Game implements GameInterface
                 $this->playerTwoConn->gameOver($name);
                 $this->playerOneConn->gameOver($name);
             }
-        }
-        else
-        {
-            print("Bitch tryin' to play me. Nah!\n");
         }
     }
 
