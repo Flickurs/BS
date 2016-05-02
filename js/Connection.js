@@ -64,7 +64,7 @@ var Connection = (function() {
                 }
                 else
                 {
-                    this.addSystemMessage("Wait for opponents turn...");
+                    this.addSystemMessage("Wait for opponent's turn...");
                 }
             }
             else if(data.action == "result")
