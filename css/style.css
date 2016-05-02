@@ -120,3 +120,7 @@ div, textarea {
     left: 35em;
     margin-left: -190px;
 }
+
+#readme {
+    color: white;
+}

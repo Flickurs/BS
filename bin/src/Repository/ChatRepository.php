@@ -71,7 +71,7 @@ class ChatRepository implements ChatRepositoryInterface
     {
         $newClient = new ChatConnection($conn, $this);
         $this->clients->attach($newClient);
-        print("Client connected\n");
+        // print("Client connected\n");
     }
 
     /**
@@ -86,7 +86,7 @@ class ChatRepository implements ChatRepositoryInterface
 
         if ($client !== null)
         {
-            print("Disconnecting: " . $client->getName() . "\n");
+            // print("Disconnecting: " . $client->getName() . "\n");
             $client->disconnect();
             $this->clients->detach($client);
         }
@@ -104,10 +104,10 @@ class ChatRepository implements ChatRepositoryInterface
 
     public function enqueueClient(ChatConnection $client)
     {
-        print("Client enqueued.\n");
-        print("Queue count before: " . $this->queue->count() . "\n");
+        // print("Client enqueued.\n");
+        // print("Queue count before: " . $this->queue->count() . "\n");
         $this->queue->enqueue($client);
-        print("Queue count after: " . $this->queue->count() . "\n");
+        // print("Queue count after: " . $this->queue->count() . "\n");
         while ($this->queue->count() >= 2)
         {
             $playerOne = $this->queue->dequeue();
@@ -126,7 +126,7 @@ class ChatRepository implements ChatRepositoryInterface
                 continue;
             }
 
-            print("Creating game...\n");
+            // print("Creating game...\n");
             new Game($playerOne, $playerTwo);
         }
     }
