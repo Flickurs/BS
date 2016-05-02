@@ -34,8 +34,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-info-sign"></span> Info</a>
                         <ul class="dropdown-menu">
-                            <li><a href="../">Home</a></li>
-                            <li><a href="/">Battleship</a></li>
+                            <li><a href="/Projects">Home</a></li>
+                            <li><a href="./">Battleship</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -44,6 +44,12 @@
     </nav>
 
     <div>
+        <div class='text-center'>
+            <a href='https://github.com/Flickurs/BS' class='btn btn-success'>Repository</a>
+        </div>
+        <div id='readme' class='opaque well center'>
+            <p>Herein lies Jake Anderson, Matthew Lemon, Michael Pregman, and Jackson Stafford's Final Project for CS 4540 Spring 2016.</p>
+        </div>
     </div>
 
 </body>
